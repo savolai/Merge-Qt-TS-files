@@ -27,6 +27,6 @@ Also, qt docs don't exactly wanr about this situation, and also it tends to cree
 The solution is to produce a common translation file for all the apps. First run your ts files through this app, combining translations. Then run lupdate like below - this updates the location tags of the translations to point to the right place(s).
 After that, you can normally run lrelease on your ts file to produce .qm and load it from all your apps.
 
-Thanks @dfaure for pointing me to the right direction.
+Thanks David Faure / @dfaure-kdab for pointing me to the right direction.
 
 Another option might be to load first the app specific language file and then on top of that, the translations for the common components. This occured to me too late. \o/ however, having all project translations in a single file tends to be a cleaner solution overall, as you will always know what has already been translated.
