@@ -1,7 +1,6 @@
 # Merge-Qt-TS-files
 This app allows you to combine multiple Qt .ts files into one
-
-This app allows you to combine multiple Qt .ts files into one.
+This is a Qt project. The easiest way to use it is to install Qt and open the project / CombineTranslationFiles.pro in Qt Creator, and then compile and run the project.
 
 Usage: 
 1. Open each source file by pressing "Browse source...". After doing that, click "Read in current source file translations". You will get a count of translations loaded into memory.
