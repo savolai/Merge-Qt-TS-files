@@ -10,7 +10,7 @@ For use as-is. Made for my own use. Pull requests welcome.
 2. Repeat step 1 for each file you want to combine
 3. After reading into memory all your translation data, select target file by pressing "Browse target...". After selecting filename to save to, press "Write translations to file". 
 
-This app is designed to preserve as much of the information in the translation files. 
+This app is designed to preserve as much as possible of the information in the translation files. 
 
 When combining multiple translation files, this makes sure translations with empty content never override translations with existing content. If many of your source files contain nonempty translations for the same translation units (i.e classname+source text content), make sure to load the file with the translations you want last.
 
