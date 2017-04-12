@@ -12,7 +12,9 @@ For use as-is. Made for my own use. Pull requests welcome.
 
 This app is designed to preserve as much as possible of the information in the translation files. 
 
-When combining multiple translation files, this makes sure translations with empty content never override translations with existing content. If many of your source files contain nonempty translations for the same translation units (i.e classname+source text content), make sure to load the file with the translations you want last.
+When combining multiple translation files, this makes sure translations with empty content never override translations with existing content. 
+
+If multiple of your source files contain conflicting, nonempty, translations for the same translation units (i.e classname+source text content), make sure to load the file that has the translations you want, last.
 
 Caveat: This tool does NOT currently include multiple <location> elements if many exist in source translation units, only one of them is included for each translation. Mostly this never makes any difference, since a single run of lupdate project1.pro project2.pro -ts projects.ts (where projects.ts is the output file of this program) will put all the additional locations back again. 
 
