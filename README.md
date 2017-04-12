@@ -2,7 +2,7 @@
 
 ![Screenshot: This app allows you to combine multiple Qt .ts files into one](https://raw.githubusercontent.com/savolai/Merge-Qt-TS-files/master/screenshot.png)
 
-This is a Qt project. The easiest way to use it is to install Qt and open the project / CombineTranslationFiles.pro in Qt Creator, and then compile and run the project.
+This is a Qt project. The easiest way to use it is to install Qt, [download](https://github.com/savolai/Merge-Qt-TS-files/archive/master.zip) and open the project / CombineTranslationFiles.pro in Qt Creator, and then compile and run the project.
 
 For use as-is. Made for my own use. Pull requests welcome.
 
