@@ -28,6 +28,10 @@ private slots:
 
     void on_sourceFilePushButton_clicked();
 
+    void on_dockWidget_visibilityChanged(bool visible);
+
+    void on_helpPushButton_clicked(bool checked);
+
 private:
     Ui::CombineTranslationFiles* ui;
     void readXML(QString sourcePath);

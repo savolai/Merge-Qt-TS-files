@@ -10,6 +10,7 @@ CombineTranslationFiles::CombineTranslationFiles(QWidget* parent)
     ui->setupUi(this);
     ui->buttonBox->button(QDialogButtonBox::Open)->setText("Read in current source file translations");
     ui->buttonBox->button(QDialogButtonBox::Apply)->setText("Write translations to file");
+    ui->dockWidget->hide();
 }
 
 CombineTranslationFiles::~CombineTranslationFiles()
@@ -21,17 +22,6 @@ void CombineTranslationFiles::on_buttonBox_clicked(QAbstractButton* button)
 {
     if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Open)) {
         readXML(ui->sourceFile->text());
-
-        ui->textBrowser->append(QString("<br>Read in file %1").arg(ui->sourceFile->text()));
-        int total = 0;
-        int modules = 0;
-        QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
-        while (i.hasNext()) {
-            i.next();
-            total += i.value().size();
-            modules++;
-        }
-        ui->textBrowser->append(QString("<br>Total size now %1 in %2 modules").arg(total).arg(modules));
 
     } else if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Apply)) {
         writeFile(ui->targetFile->text());
@@ -58,17 +48,35 @@ void CombineTranslationFiles::on_sourceFilePushButton_clicked()
 void CombineTranslationFiles::readXML(QString sourcePath)
 {
     QFile sourceFile(sourcePath);
-    sourceFile.open(QIODevice::ReadOnly);
+    if (sourceFile.open(QIODevice::ReadOnly)) {
 
-    xmlR.setDevice(&sourceFile);
+        xmlR.setDevice(&sourceFile);
 
-    if (xmlR.readNextStartElement()) {
-        if (xmlR.name() == "TS")
-            readTS();
-        else
-            xmlR.raiseError(QObject::tr("The file is not a TS file"));
+        if (xmlR.readNextStartElement()) {
+            if (xmlR.name() == "TS") {
+                readTS();
+
+                ui->textBrowser->append(QString("<br>Read in file %1").arg(ui->sourceFile->text()));
+                int total = 0;
+                int modules = 0;
+                QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
+                while (i.hasNext()) {
+                    i.next();
+                    total += i.value().size();
+                    modules++;
+                }
+                ui->textBrowser->append(QString("<br>Total size now %1 in %2 modules").arg(total).arg(modules));
+
+            } else
+                xmlR.raiseError(QObject::tr("The file is not a TS file"));
+        }
+    } else {
+        if (ui->sourceFile->text().isEmpty()) {
+            ui->textBrowser->append("No file selected for reading.");
+        }
     }
 }
+
 void CombineTranslationFiles::readTS()
 {
     Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "TS");
@@ -231,4 +239,14 @@ int CombineTranslationFiles::writeItem(QString context, QMap<QString, QMap<QStri
     //context
     xmlW.writeEndElement();
     return total;
+}
+
+void CombineTranslationFiles::on_dockWidget_visibilityChanged(bool visible)
+{
+    ui->helpPushButton->setChecked(visible);
+}
+
+void CombineTranslationFiles::on_helpPushButton_clicked(bool checked)
+{
+    ui->dockWidget->setVisible(checked);
 }
