@@ -21,7 +21,7 @@ Caveat: This tool does NOT currently include multiple <location> elements if man
 This is useful when you have multiple applications
 
 1. that have language files of their own
-2. that statically link to common libraries
+2. that statically link to common libraries that also have translations
     
 In this situation, overlaps in translation files can cause strings not getting translated in the UI.
 Also, qt docs don't exactly wanr about this situation, and also it tends to creep up on you; I found myself in a situation with hundreds of translation spread across multiple translation files that should have been one. So I wrote this to fix it.
