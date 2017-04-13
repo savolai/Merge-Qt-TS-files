@@ -36,4 +36,4 @@ Thanks David Faure / @dfaure-kdab for pointing me to the right direction.
 
 Other options that might help: 
 1. When loading translation files into your app, first load the app specific language file and then on top of that, the translations for the common components. This occured to me too late. \o/ however, having all project translations in a single file tends to be a cleaner solution overall, as you will always know what has already been translated.
-2. Use an XML merging tool such as those mentioned [in this StackOverflow post](http://stackoverflow.com/questions/80609/merge-xml-documents) might also work, but now we have a GUI :)
+2. Using an XML merging tool such as those mentioned [in this StackOverflow post](http://stackoverflow.com/questions/80609/merge-xml-documents) might also work, but now we have a GUI :)
