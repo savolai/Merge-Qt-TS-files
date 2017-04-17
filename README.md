@@ -4,6 +4,8 @@
 
 This is a Qt project. The easiest way to use it is to install Qt, [download](https://github.com/savolai/Merge-Qt-TS-files/archive/master.zip) and open the project / CombineTranslationFiles.pro in Qt Creator, and then compile and run the project.
 
+This also provides a simple, easily adaptable model GUI, as well as QXmlStreamReader/Writer code sample, for merging multiple files of any XML format. Just in case you don't like XSL.
+
 For use as-is. Made for my own use. Pull requests welcome.
 
 ## Usage: 
