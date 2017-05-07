@@ -8,8 +8,8 @@ CombineTranslationFiles::CombineTranslationFiles(QWidget* parent)
     , ui(new Ui::CombineTranslationFiles)
 {
     ui->setupUi(this);
-    ui->buttonBox->button(QDialogButtonBox::Open)->setText("Read in current source file translations");
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setText("Write translations to file");
+    ui->buttonBox->button(QDialogButtonBox::Apply)->setText("Save translations to file");
+    ui->buttonBox->button(QDialogButtonBox::Apply)->setStyleSheet("font-weight:bold;");
     ui->dockWidget->hide();
 }
 
@@ -56,7 +56,11 @@ void CombineTranslationFiles::readXML(QString sourcePath)
             if (xmlR.name() == "TS") {
                 readTS();
 
-                ui->textBrowser->append(QString("<br>Read in file %1").arg(ui->sourceFile->text()));
+                ui->textBrowser->append(QString("<br>Completed reading in file %1").arg(ui->sourceFile->text()));
+                inputFileCount++;
+                if (inputFileCount == 1) {
+                    ui->textBrowser->append(QString("<b>Read in at least one more file to combine files.</b>").arg(ui->sourceFile->text()));
+                }
                 int total = 0;
                 int modules = 0;
                 QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
@@ -249,4 +253,9 @@ void CombineTranslationFiles::on_dockWidget_visibilityChanged(bool visible)
 void CombineTranslationFiles::on_helpPushButton_clicked(bool checked)
 {
     ui->dockWidget->setVisible(checked);
+}
+
+void CombineTranslationFiles::on_sourceFilePushButton_2_clicked()
+{
+    readXML(ui->sourceFile->text());
 }

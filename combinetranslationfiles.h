@@ -32,6 +32,8 @@ private slots:
 
     void on_helpPushButton_clicked(bool checked);
 
+    void on_sourceFilePushButton_2_clicked();
+
 private:
     Ui::CombineTranslationFiles* ui;
     void readXML(QString sourcePath);
@@ -48,6 +50,7 @@ private:
     void readContext();
     void readTS();
     QString lastFileReadLang;
+    int inputFileCount = 0;
     bool writeFile(QString targetPath);
     int writeItem(QString context, QMap<QString, QMap<QString, QString> > content);
 };

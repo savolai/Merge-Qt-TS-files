@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
+    <width>1111</width>
     <height>718</height>
    </rect>
   </property>
@@ -234,6 +234,23 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="sourceFilePushButton_2">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">padding:0.5em;</string>
+                </property>
+                <property name="text">
+                 <string>Read in selected file</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
@@ -319,7 +336,7 @@
                <string notr="true">padding:0.5em; font-size:10pt;</string>
               </property>
               <property name="standardButtons">
-               <set>QDialogButtonBox::Apply|QDialogButtonBox::Open</set>
+               <set>QDialogButtonBox::Apply</set>
               </property>
              </widget>
             </item>
@@ -404,7 +421,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot; bgcolor=&quot;#ffffff&quot;&gt;
 &lt;p style=&quot; margin-top:10px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot;&gt;Usage: &lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Open each source file by pressing &amp;quot;Browse source...&amp;quot;. After doing that, click &amp;quot;Read in current source file translations&amp;quot;. You will get a count of translations loaded into memory.&lt;/span&gt;&lt;/li&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Open each source file by pressing &amp;quot;Browse source...&amp;quot;. After doing that, click &amp;quot;Read in selected file&amp;quot;. You will get a count of translations loaded into memory.&lt;/span&gt;&lt;/li&gt;
 &lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Repeat step 1 for each file you want to combine&lt;/li&gt;
 &lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;After reading into memory all your translation data, select target file by pressing &amp;quot;Browse target...&amp;quot;. After selecting filename to save to, press &amp;quot;Write translations to file&amp;quot;. &lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot;&gt;This app is designed to preserve as much as possible of the information in the translation files. &lt;/span&gt;&lt;/p&gt;
