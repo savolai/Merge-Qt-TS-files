@@ -370,9 +370,6 @@
      <height>78</height>
     </size>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable</set>
    </property>
@@ -405,9 +402,6 @@
         <font>
          <pointsize>8</pointsize>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:transparent;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
