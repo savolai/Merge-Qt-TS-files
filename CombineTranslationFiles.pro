@@ -24,8 +24,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        combinetranslationfiles.cpp
+        combinetranslationfiles.cpp \
+        tsdropedit.cpp
 
-HEADERS  += combinetranslationfiles.h
+HEADERS  += combinetranslationfiles.h \
+    tsdropedit.h
 
 FORMS    += combinetranslationfiles.ui
