@@ -36,7 +36,7 @@ private slots:
 
 private:
     Ui::CombineTranslationFiles* ui;
-    void readXML(QString sourcePath);
+    void readXML(const QString& sourcePath);
     QXmlStreamReader xmlR;
     QXmlStreamWriter xmlW;
     /**
@@ -46,13 +46,13 @@ private:
      * 3. QString of other <elements> to QString contents
      */
     QMap<QString, QMap<QString, QMap<QString, QString> > > sourceStrings;
-    void readMessage(QString context);
+    void readMessage(const QString& context);
     void readContext();
     void readTS();
     QString lastFileReadLang;
     int inputFileCount = 0;
-    bool writeFile(QString targetPath);
-    int writeItem(QString context, QMap<QString, QMap<QString, QString> > content);
+    bool writeFile(const QString& targetPath);
+    int writeItem(const QString& context, const QMap<QString, QMap<QString, QString> >& content);
 };
 
 #endif // COMBINETRANSLATIONFILES_H

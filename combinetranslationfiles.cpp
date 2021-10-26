@@ -45,7 +45,7 @@ void CombineTranslationFiles::on_sourceFilePushButton_clicked()
     ui->sourceFile->setText(fileName);
 }
 
-void CombineTranslationFiles::readXML(QString sourcePath)
+void CombineTranslationFiles::readXML(const QString& sourcePath)
 {
     QFile sourceFile(sourcePath);
     if (sourceFile.open(QIODevice::ReadOnly)) {
@@ -118,7 +118,7 @@ void CombineTranslationFiles::readContext()
         }
     }
 }
-void CombineTranslationFiles::readMessage(QString context)
+void CombineTranslationFiles::readMessage(const QString& context)
 {
     Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "message");
     QString source;
@@ -174,7 +174,7 @@ void CombineTranslationFiles::readMessage(QString context)
     }
 }
 
-bool CombineTranslationFiles::writeFile(QString targetPath)
+bool CombineTranslationFiles::writeFile(const QString& targetPath)
 {
     QFile targetFile(targetPath);
     if (targetFile.open(QIODevice::WriteOnly)) {
@@ -202,7 +202,7 @@ bool CombineTranslationFiles::writeFile(QString targetPath)
     }
     return true;
 }
-int CombineTranslationFiles::writeItem(QString context, QMap<QString, QMap<QString, QString> > content)
+int CombineTranslationFiles::writeItem(const QString& context, const QMap<QString, QMap<QString, QString> >& content)
 {
     xmlW.writeStartElement("context");
 
