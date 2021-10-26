@@ -6,8 +6,10 @@
 CombineTranslationFiles::CombineTranslationFiles(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::CombineTranslationFiles)
+    , noLanguageText("[none]")
 {
     ui->setupUi(this);
+    ui->language->setText(noLanguageText);
     ui->buttonBox->button(QDialogButtonBox::Apply)->setText("Save translations to file");
     ui->buttonBox->button(QDialogButtonBox::Apply)->setStyleSheet("font-weight:bold;");
     ui->dockWidget->hide();
@@ -27,6 +29,8 @@ void CombineTranslationFiles::on_buttonBox_clicked(QAbstractButton* button)
         writeFile(ui->targetFile->text());
     } else if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Close)) {
         qApp->quit();
+    } else if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Reset)) {
+        reset();
     }
 }
 
@@ -87,7 +91,7 @@ void CombineTranslationFiles::readTS()
     QString newlang = xmlR.attributes().value("language").toString();
     if (ui->language->text() != newlang
         && !ui->language->text().isEmpty()
-        && ui->language->text() != "[none]") {
+        && ui->language->text() != noLanguageText) {
         ui->textBrowser->append(QString("<b>Warning! Language of previous source document was %1, new one has %2</b>").arg(ui->language->text()).arg(newlang));
     }
     ui->language->setText(newlang);
@@ -243,6 +247,16 @@ int CombineTranslationFiles::writeItem(const QString& context, const QMap<QStrin
     //context
     xmlW.writeEndElement();
     return total;
+}
+
+void CombineTranslationFiles::reset()
+{
+    inputFileCount = 0;
+    sourceStrings.clear();
+    ui->language->setText(noLanguageText);
+    ui->textBrowser->clear();
+    ui->targetFile->clear();
+    ui->sourceFile->clear();
 }
 
 void CombineTranslationFiles::on_dockWidget_visibilityChanged(bool visible)

@@ -336,7 +336,7 @@
                <string notr="true">padding:0.5em; font-size:10pt;</string>
               </property>
               <property name="standardButtons">
-               <set>QDialogButtonBox::Apply</set>
+               <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>
               </property>
              </widget>
             </item>
