@@ -24,10 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
+        aboutdialog.cpp \
         combinetranslationfiles.cpp \
-        tsdropedit.cpp
+        tsdata.cpp \
+        tsdatavectormodel.cpp \
+        waitcursorscope.cpp
 
 HEADERS  += combinetranslationfiles.h \
-    tsdropedit.h
+    aboutdialog.h \
+    tsdata.h \
+    tsdatavectormodel.h \
+    waitcursorscope.h
 
-FORMS    += combinetranslationfiles.ui
+FORMS    += combinetranslationfiles.ui \
+    aboutdialog.ui
+
+RESOURCES += \
+    combinetranslationfiles.qrc

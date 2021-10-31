@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1477</width>
-    <height>718</height>
+    <width>892</width>
+    <height>573</height>
    </rect>
   </property>
   <property name="font">
@@ -16,298 +16,90 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Merge Qt .ts files</string>
+   <string>Merge Qt Localization TS Files</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#titleWidget{background-color:white;}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_6">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QWidget" name="titleWidget" native="true">
-      <property name="styleSheet">
-       <string notr="true"/>
+     <widget class="QTreeView" name="treeView">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ContiguousSelection</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QWidget" name="titleWidgetInner" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>700</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Combine multiple Qt .ts files into one&lt;br/&gt;&lt;/span&gt;&lt;a href=&quot;https://github.com/savolai/Merge-Qt-TS-files/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/savolai/Merge-Qt-TS-files/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="helpPushButton">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">padding:0.5em;</string>
-              </property>
-              <property name="text">
-               <string>Show Help</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-         <zorder></zorder>
-        </widget>
-       </item>
-      </layout>
      </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <item>
-       <widget class="QWidget" name="widget" native="true">
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="widget_2" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>700</width>
-             <height>0</height>
-            </size>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="TSDropEdit" name="sourceFile">
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">padding:0.5em;</string>
-                </property>
-                <property name="placeholderText">
-                 <string>Source file for translations</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="sourceFilePushButton">
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">padding:0.5em;</string>
-                </property>
-                <property name="text">
-                 <string>Browse source...</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="sourceFilePushButton_2">
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">padding:0.5em;</string>
-                </property>
-                <property name="text">
-                 <string>Read in selected file</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="TSDropEdit" name="targetFile">
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">padding:0.5em;</string>
-                </property>
-                <property name="placeholderText">
-                 <string>File to save translations in</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="targetFilePushButton">
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">padding:0.5em;</string>
-                </property>
-                <property name="text">
-                 <string>Browse target...</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>Language of last read file:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="language">
-                <property name="text">
-                 <string>[none]</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QTextBrowser" name="textBrowser">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDialogButtonBox" name="buttonBox">
-              <property name="styleSheet">
-               <string notr="true">padding:0.5em; font-size:10pt;</string>
-              </property>
-              <property name="standardButtons">
-               <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>Merging</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAdd"/>
+   <addaction name="actionRemove"/>
+   <addaction name="actionClear"/>
+   <addaction name="separator"/>
+   <addaction name="actionMerge"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>892</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionContents"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuMerging">
+    <property name="title">
+     <string>&amp;Merging</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionRemove"/>
+    <addaction name="actionClear"/>
+    <addaction name="separator"/>
+    <addaction name="actionMerge"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuMerging"/>
+   <addaction name="menuHelp"/>
+  </widget>
   <widget class="QDockWidget" name="dockWidget">
-   <property name="minimumSize">
-    <size>
-     <width>400</width>
-     <height>87</height>
-    </size>
-   </property>
-   <property name="features">
-    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable</set>
-   </property>
    <property name="allowedAreas">
-    <set>Qt::RightDockWidgetArea</set>
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>Help</string>
+    <string>Help Contents</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -327,7 +119,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QTextBrowser" name="textBrowser_2">
+      <widget class="QTextBrowser" name="textBrowserContents">
        <property name="font">
         <font>
          <pointsize>8</pointsize>
@@ -343,11 +135,11 @@
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot; bgcolor=&quot;#ffffff&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:8pt; font-weight:400; font-style:normal;&quot; bgcolor=&quot;#ffffff&quot;&gt;
 &lt;p style=&quot; margin-top:10px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot;&gt;Usage: &lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Open each source file by pressing &amp;quot;Browse source...&amp;quot;. After doing that, click &amp;quot;Read in selected file&amp;quot;. You will get a count of translations loaded into memory.&lt;/span&gt;&lt;/li&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Open one or multiple source files by pressing &amp;quot;Add&amp;quot;.&lt;/span&gt;&lt;/li&gt;
 &lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Repeat step 1 for each file you want to combine&lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;After reading into memory all your translation data, select target file by pressing &amp;quot;Browse target...&amp;quot;. After selecting filename to save to, press &amp;quot;Write translations to file&amp;quot;. &lt;/li&gt;&lt;/ol&gt;
+&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;After reading into memory all your translation data, select target file by pressing &amp;quot;Merge&amp;quot;. &lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt; font-weight:600;&quot;&gt;This app is designed to preserve as much as possible of the information in the translation files. &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot;&gt;When combining multiple translation files, this makes sure translations with empty content never override translations with existing content.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
@@ -370,22 +162,86 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot;&gt;Another option might be to load first the app specific language file and then on top of that, the translations for the common components. This occured to me too late. \o/ however, having all project translations in a single file tends to be a cleaner solution overall, as you will always know what has already been translated.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;js-repo-pjax-container&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot;&gt;O&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot;&gt;ther options that might help:&lt;/span&gt;&lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;When loading translation files into your app, first load the app specific language file and then on top of that, the translations for the common components. This occured to me too late. \o/ however, having all project translations in a single file tends to be a cleaner solution overall, as you will always know what has already been translated.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Using an XML merging tool such as those mentioned &lt;a href=&quot;http://stackoverflow.com/questions/80609/merge-xml-documents&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;in this StackOverflow post&lt;/span&gt;&lt;/a&gt; might also work, but I enjoyed making this and emh, now we have a GUI :)&lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;li style=&quot; font-family:'Segoe UI,Arial,Helvetica,MS Shell Dlg 2'; font-size:10pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Using an XML merging tool might also work, but I enjoyed making this and emh, now we have a GUI :)&lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
+  <action name="actionAdd">
+   <property name="icon">
+    <iconset resource="combinetranslationfiles.qrc">
+     <normaloff>:/CTF/icons/add.svg</normaloff>:/CTF/icons/add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Add</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionMerge">
+   <property name="icon">
+    <iconset resource="combinetranslationfiles.qrc">
+     <normaloff>:/CTF/icons/merge.svg</normaloff>:/CTF/icons/merge.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Merge</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="combinetranslationfiles.qrc">
+     <normaloff>:/CTF/icons/remove.svg</normaloff>:/CTF/icons/remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Remove</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset resource="combinetranslationfiles.qrc">
+     <normaloff>:/CTF/icons/clear.svg</normaloff>:/CTF/icons/clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Clear</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionContents">
+   <property name="text">
+    <string>Contents</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>TSDropEdit</class>
-   <extends>QLineEdit</extends>
-   <header>tsdropedit.h</header>
-  </customwidget>
- </customwidgets>
- <resources/>
+ <tabstops>
+  <tabstop>treeView</tabstop>
+ </tabstops>
+ <resources>
+  <include location="combinetranslationfiles.qrc"/>
+ </resources>
  <connections/>
 </ui>

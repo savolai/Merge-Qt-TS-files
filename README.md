@@ -9,9 +9,9 @@ This also provides a simple, easily adaptable model GUI, as well as QXmlStreamRe
 For use as-is. Made for my own use. Pull requests welcome.
 
 ## Usage: 
-1. Open each source file by pressing "Browse source...". After doing that, click "Read in current source file translations". You will get a count of translations loaded into memory.
+1. Open one or multiple source files by pressing "Add".
 2. Repeat step 1 for each file you want to combine
-3. After reading into memory all your translation data, select target file by pressing "Browse target...". After selecting filename to save to, press "Write translations to file". 
+3. After reading into memory all your translation data, select target file by pressing "Merge".
 
 This app is designed to preserve as much as possible of the information in the translation files. 
 

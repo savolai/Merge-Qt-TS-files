@@ -1,59 +1,58 @@
+// Copyright 2017-2021 Olli Savolainen
+// Copyright 2021 Thomas Ascher
+// SPDX-License-Identifier: Apache-2.0
+
 #ifndef COMBINETRANSLATIONFILES_H
 #define COMBINETRANSLATIONFILES_H
 
-#include <QAbstractButton>
-#include <QDebug>
-#include <QDialogButtonBox>
-#include <QFile>
-#include <QFileDialog>
-#include <QLabel>
+#include <limits>
 #include <QMainWindow>
-#include <QTextBrowser>
-#include <QXmlStreamReader>
-namespace Ui {
+#include "tsdatavectormodel.h"
+class QLabel;
+
+namespace Ui
+{
 class CombineTranslationFiles;
 }
 
-class CombineTranslationFiles : public QMainWindow {
+class CombineTranslationFiles : public QMainWindow
+{
     Q_OBJECT
 
 public:
-    explicit CombineTranslationFiles(QWidget* parent = 0);
+    explicit CombineTranslationFiles(QWidget *parent = nullptr);
+
     ~CombineTranslationFiles();
 
+    bool addSourcePaths(const QStringList &sourcePahts);
+
+    bool merge(const QString &targetPath);
+
 private slots:
-    void on_buttonBox_clicked(QAbstractButton* button);
+    void onAddClicked();
 
-    void on_targetFilePushButton_clicked();
+    void onRemoveClicked();
 
-    void on_sourceFilePushButton_clicked();
+    void onClearClicked();
 
-    void on_dockWidget_visibilityChanged(bool visible);
+    void onMergeClicked();
 
-    void on_helpPushButton_clicked(bool checked);
+    void onAboutClicked();
 
-    void on_sourceFilePushButton_2_clicked();
+    void onDataChange();
+
+    void onSelectionChange();
+
+    void onContentsClicked();
 
 private:
-    Ui::CombineTranslationFiles* ui;
-    QString noLanguageText;
-    void readXML(const QString& sourcePath);
-    QXmlStreamReader xmlR;
-    QXmlStreamWriter xmlW;
-    /**
-     * @brief sourceStrings QMap of
-     * 1. QString <context> name to Qmap of
-     * 2. QString <message> <source> string to Qmap of
-     * 3. QString of other <elements> to QString contents
-     */
-    QMap<QString, QMap<QString, QMap<QString, QString> > > sourceStrings;
-    void readMessage(const QString& context);
-    void readContext();
-    void readTS();
-    int inputFileCount = 0;
-    bool writeFile(const QString& targetPath);
-    int writeItem(const QString& context, const QMap<QString, QMap<QString, QString> >& content);
-    void reset();
+    QString getFilterText() const;
+
+    Ui::CombineTranslationFiles *ui;
+
+    QLabel *status;
+
+    TSDataVectorModel model;
 };
 
-#endif // COMBINETRANSLATIONFILES_H
+#endif

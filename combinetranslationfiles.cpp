@@ -1,18 +1,44 @@
+// Copyright 2017-2021 Olli Savolainen
+// Copyright 2021 Thomas Ascher
+// SPDX-License-Identifier: Apache-2.0
+
 #include "combinetranslationfiles.h"
 #include "ui_combinetranslationfiles.h"
-#include <QDialogButtonBox>
+#include "aboutdialog.h"
+#include "waitcursorscope.h"
+#include <QFileDialog>
 #include <QLabel>
-#include <QTextBrowser>
-CombineTranslationFiles::CombineTranslationFiles(QWidget* parent)
-    : QMainWindow(parent)
-    , ui(new Ui::CombineTranslationFiles)
-    , noLanguageText("[none]")
+
+CombineTranslationFiles::CombineTranslationFiles(QWidget *parent)
+    :QMainWindow(parent)
+    ,ui(new Ui::CombineTranslationFiles)
 {
     ui->setupUi(this);
-    ui->language->setText(noLanguageText);
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setText("Save translations to file");
-    ui->buttonBox->button(QDialogButtonBox::Apply)->setStyleSheet("font-weight:bold;");
     ui->dockWidget->hide();
+    status = new QLabel(ui->statusBar);
+    ui->statusBar->addWidget(status);
+    ui->treeView->setRootIsDecorated(false);
+    ui->treeView->setModel(&model);
+    ui->treeView->setDragEnabled(true);
+    ui->treeView->setAcceptDrops(true);
+    ui->treeView->setDropIndicatorShown(true);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))    
+    ui->treeView->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
+    ui->treeView->header()->setResizeMode(QHeaderView::ResizeToContents);    
+#endif    
+    connect(ui->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(ui->actionAdd, SIGNAL(triggered()), this, SLOT(onAddClicked()));
+    connect(ui->actionRemove, SIGNAL(triggered()), this, SLOT(onRemoveClicked()));
+    connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(onClearClicked()));
+    connect(ui->actionMerge, SIGNAL(triggered()), this, SLOT(onMergeClicked()));
+    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onAboutClicked()));
+    connect(ui->actionContents, SIGNAL(triggered()), this, SLOT(onContentsClicked()));
+    connect(&model, SIGNAL(rowsInserted(const QModelIndex&, int, int)), this, SLOT(onDataChange()));
+    connect(&model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), this, SLOT(onDataChange()));
+    connect(&model, SIGNAL(modelReset()), this, SLOT(onDataChange()));
+    connect(ui->treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(onSelectionChange()));
+    onDataChange();
 }
 
 CombineTranslationFiles::~CombineTranslationFiles()
@@ -20,256 +46,84 @@ CombineTranslationFiles::~CombineTranslationFiles()
     delete ui;
 }
 
-void CombineTranslationFiles::on_buttonBox_clicked(QAbstractButton* button)
+bool CombineTranslationFiles::addSourcePaths(const QStringList &sourcePahts)
 {
-    if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Open)) {
-        readXML(ui->sourceFile->text());
+    return model.add(sourcePahts);
+}
 
-    } else if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Apply)) {
-        writeFile(ui->targetFile->text());
-    } else if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Close)) {
-        qApp->quit();
-    } else if ((QPushButton*)button == ui->buttonBox->button(QDialogButtonBox::Reset)) {
-        reset();
+bool CombineTranslationFiles::merge(const QString &targetPath)
+{
+    WaitCursorScope wc;
+    TSData data = model.merge();
+    TSDataStatistics statictics = data.calcStatistics();
+    ui->statusBar->showMessage(tr("%1 contexts and %2 entries exported")
+                                   .arg(statictics.contexts)
+                                   .arg(statictics.entries), 3000);
+    return data.write(targetPath);
+}
+
+void CombineTranslationFiles::onAddClicked()
+{
+    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Add Qt Localization TS Files"), QString(), getFilterText());
+    if (!fileNames.isEmpty())
+    {
+        model.add(fileNames);
     }
 }
 
-void CombineTranslationFiles::on_targetFilePushButton_clicked()
+void CombineTranslationFiles::onRemoveClicked()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Translation File"),
-        "",
-        tr("Qt Localization ts files (*.ts)"));
-    ui->targetFile->setText(fileName);
+    model.remove(ui->treeView->selectionModel()->selectedRows());
 }
 
-void CombineTranslationFiles::on_sourceFilePushButton_clicked()
+void CombineTranslationFiles::onClearClicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Translation file"), "", tr("Qt Localization ts files (*.ts)"));
-    ui->sourceFile->setText(fileName);
+    model.clear();
 }
 
-void CombineTranslationFiles::readXML(const QString& sourcePath)
+void CombineTranslationFiles::onMergeClicked()
 {
-    QFile sourceFile(sourcePath);
-    if (sourceFile.open(QIODevice::ReadOnly)) {
-
-        xmlR.setDevice(&sourceFile);
-
-        if (xmlR.readNextStartElement()) {
-            if (xmlR.name() == "TS") {
-                readTS();
-
-                ui->textBrowser->append(QString("<br>Completed reading in file %1").arg(ui->sourceFile->text()));
-                inputFileCount++;
-                if (inputFileCount == 1) {
-                    ui->textBrowser->append(QString("<b>Read in at least one more file to combine files.</b>").arg(ui->sourceFile->text()));
-                }
-                int total = 0;
-                int modules = 0;
-                QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
-                while (i.hasNext()) {
-                    i.next();
-                    total += i.value().size();
-                    modules++;
-                }
-                ui->textBrowser->append(QString("<br>Total size now %1 in %2 modules").arg(total).arg(modules));
-
-            } else
-                xmlR.raiseError(QObject::tr("The file is not a TS file"));
-        }
-    } else {
-        if (ui->sourceFile->text().isEmpty()) {
-            ui->textBrowser->append("No file selected for reading.");
-        }
+    QString targetPath = QFileDialog::getSaveFileName(this, tr("Save Qt Localization TS File"),  QString(), getFilterText());
+    if (!targetPath.isEmpty())
+    {
+        if (!TSData::isTSFile(targetPath))
+            targetPath.append(".ts");
+        merge(targetPath);
     }
 }
 
-void CombineTranslationFiles::readTS()
+void CombineTranslationFiles::onAboutClicked()
 {
-    Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "TS");
-    QString newlang = xmlR.attributes().value("language").toString();
-    if (ui->language->text() != newlang
-        && !ui->language->text().isEmpty()
-        && ui->language->text() != noLanguageText) {
-        ui->textBrowser->append(QString("<b>Warning! Language of previous source document was %1, new one has %2</b>").arg(ui->language->text()).arg(newlang));
-    }
-    ui->language->setText(newlang);
-
-    while (xmlR.readNextStartElement()) {
-        if (xmlR.name() == "context")
-            readContext();
-        else {
-            qDebug() << "Unexpected element as child of TS" << xmlR.name();
-            xmlR.skipCurrentElement();
-        }
-    }
+    AboutDialog about(this);
+    about.exec();
 }
 
-void CombineTranslationFiles::readContext()
+void CombineTranslationFiles::onDataChange()
 {
-    Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "context");
-    QString context;
+    bool hasData = model.hasData();
+    ui->actionMerge->setEnabled(hasData);
+    ui->actionClear->setEnabled(hasData);
+    onSelectionChange();
 
-    while (xmlR.readNextStartElement()) {
-        if (xmlR.name() == "name") {
-            context = xmlR.readElementText();
-
-        } else if (xmlR.name() == "message") {
-            readMessage(context);
-        } else {
-            xmlR.skipCurrentElement();
-        }
-    }
-}
-void CombineTranslationFiles::readMessage(const QString& context)
-{
-    Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "message");
-    QString source;
-    QString translation;
-    QString translationtype;
-    QString translatorcomment;
-    QString location;
-    QMap<QString, QString> targetStrings;
-    bool addNewTranslation = false;
-
-    while (xmlR.readNextStartElement()) {
-
-        if (xmlR.name() == "source") {
-            source = xmlR.readElementText();
-        } else if (xmlR.name() == "translation") {
-            // check if non-empty translation already exists; don't overwrite it
-            if (sourceStrings[context].contains(source)) {
-                QMap<QString, QString> existingTargetStrings = sourceStrings[context].value(source);
-                if (existingTargetStrings.contains("translation")) {
-                    if (existingTargetStrings.value("translation").isEmpty()) {
-                        addNewTranslation = true;
-                    }
-                } else {
-                    addNewTranslation = true;
-                }
-            } else {
-                addNewTranslation = true;
-            }
-
-            translationtype = xmlR.attributes().value("type").toString();
-
-            translation = xmlR.readElementText();
-
-            targetStrings.insert("translationtype", translationtype);
-            targetStrings.insert("translation", translation);
-
-        } else if (xmlR.name() == "translatorcomment") {
-            translatorcomment = xmlR.readElementText();
-            targetStrings.insert("translatorcomment", translatorcomment);
-        } else if (xmlR.name() == "location") {
-            /// @todo there can be multiple locations in the file, and we should still
-            /// keep corresponding filenames and lines together.
-            targetStrings.insert("locationFilename", xmlR.attributes().value("filename").toString());
-            targetStrings.insert("locationLine", xmlR.attributes().value("line").toString());
-            location = xmlR.readElementText();
-        } else {
-            xmlR.skipCurrentElement();
-        }
-    }
-    if (!source.isEmpty() && addNewTranslation) {
-        // insert string to dict
-        sourceStrings[context].insert(source, targetStrings);
-    }
+    TSDataStatistics statistics = model.calcStatistics();
+    status->setText(tr("%1 files with %2 contexts and %3 entries loaded")
+                           .arg(statistics.files)
+                           .arg(statistics.contexts)
+                           .arg(statistics.entries));
 }
 
-bool CombineTranslationFiles::writeFile(const QString& targetPath)
+void CombineTranslationFiles::onSelectionChange()
 {
-    QFile targetFile(targetPath);
-    if (targetFile.open(QIODevice::WriteOnly)) {
-        xmlW.setAutoFormatting(true);
-        xmlW.setDevice(&targetFile);
-
-        xmlW.writeStartDocument();
-        xmlW.writeDTD("<!DOCTYPE TS>");
-        xmlW.writeStartElement("TS");
-        xmlW.writeAttribute("version", "2.1");
-        xmlW.writeAttribute("language", ui->language->text());
-        int total = 0;
-        int modules = 0;
-        QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
-        while (i.hasNext()) {
-            i.next();
-            total += writeItem(i.key(), i.value());
-            modules++;
-        }
-
-        xmlW.writeEndDocument();
-        ui->textBrowser->append(QString("<br><b>%1 translations in %2 modules written to %3</b>").arg(total).arg(modules).arg(targetPath));
-    } else {
-        ui->textBrowser->append(QString("<br><b>Failed to write to file: \"%3\"</b>").arg(targetPath));
-    }
-    return true;
-}
-int CombineTranslationFiles::writeItem(const QString& context, const QMap<QString, QMap<QString, QString> >& content)
-{
-    xmlW.writeStartElement("context");
-
-    xmlW.writeTextElement("name", context);
-    int total = 0;
-
-    QMapIterator<QString, QMap<QString, QString> > i(content);
-    while (i.hasNext()) {
-        i.next();
-
-        xmlW.writeStartElement("message");
-
-        xmlW.writeTextElement("source", i.key());
-
-        xmlW.writeStartElement("translation");
-        QString translationtype = i.value().value("translationtype");
-        if (!translationtype.isEmpty()) {
-            xmlW.writeAttribute("type", translationtype);
-        }
-        QString translation = i.value().value("translation");
-        xmlW.writeCharacters(translation);
-        xmlW.writeEndElement();
-
-        xmlW.writeTextElement("translatorcomment", i.value().value("translatorcomment"));
-        QString filename = i.value().value("locationFilename");
-        if (!filename.isEmpty()) {
-            xmlW.writeStartElement("location");
-            xmlW.writeAttribute("filename", filename);
-            xmlW.writeAttribute("line", i.value().value("locationLine"));
-            xmlW.writeEndElement();
-        }
-
-        //message
-        xmlW.writeEndElement();
-        total++;
-    }
-
-    //context
-    xmlW.writeEndElement();
-    return total;
+    bool hasSelection = model.hasData() && ui->treeView->selectionModel()->hasSelection();
+    ui->actionRemove->setEnabled(hasSelection);
 }
 
-void CombineTranslationFiles::reset()
+void CombineTranslationFiles::onContentsClicked()
 {
-    inputFileCount = 0;
-    sourceStrings.clear();
-    ui->language->setText(noLanguageText);
-    ui->textBrowser->clear();
-    ui->targetFile->clear();
-    ui->sourceFile->clear();
+    ui->dockWidget->show();
 }
 
-void CombineTranslationFiles::on_dockWidget_visibilityChanged(bool visible)
+QString CombineTranslationFiles::getFilterText() const
 {
-    ui->helpPushButton->setChecked(visible);
-}
-
-void CombineTranslationFiles::on_helpPushButton_clicked(bool checked)
-{
-    ui->dockWidget->setVisible(checked);
-}
-
-void CombineTranslationFiles::on_sourceFilePushButton_2_clicked()
-{
-    readXML(ui->sourceFile->text());
+    return tr("Qt Localization TS Files (*.ts)");
 }

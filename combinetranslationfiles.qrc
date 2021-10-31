@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/CTF">
+        <file>icons/add.svg</file>
+        <file>icons/clear.svg</file>
+        <file>icons/remove.svg</file>
+        <file>icons/movedown.svg</file>
+        <file>icons/moveup.svg</file>
+        <file>icons/movebottom.svg</file>
+        <file>icons/movetop.svg</file>
+        <file>icons/merge.svg</file>
+    </qresource>
+</RCC>
