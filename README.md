@@ -1,6 +1,6 @@
 # Merge Qt .ts files
 
-Note: There's a newer project with a more versatile UI for this at the following address. It was originally based on this project. I haven't tested it though.
+Note: There's a newer project with a more versatile UI for this at the following address. It was originally based on this project, then apparently rewritten. I haven't tested it though.
  https://github.com/aschet/linguistmerge
 
 ![Screenshot: This app allows you to combine multiple Qt .ts files into one](https://raw.githubusercontent.com/savolai/Merge-Qt-TS-files/master/screenshot.png)
