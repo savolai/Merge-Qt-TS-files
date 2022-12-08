@@ -3,6 +3,8 @@
 Note: There's a newer project with a more versatile UI for this at the following address. It was originally based on this project, then apparently rewritten. I haven't tested it though.
  https://github.com/aschet/linguistmerge
 
+See also lconverter
+ https://stackoverflow.com/questions/8513149/merge-translation-files-ts-with-existing-ts-files-using-qt-utilities-lconve
 ![Screenshot: This app allows you to combine multiple Qt .ts files into one](https://raw.githubusercontent.com/savolai/Merge-Qt-TS-files/master/screenshot.png)
 
 This is a Qt project. The easiest way to use it is to install Qt, [download](https://github.com/savolai/Merge-Qt-TS-files/archive/master.zip) and open the project / CombineTranslationFiles.pro in Qt Creator, and then compile and run the project.
