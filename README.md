@@ -1,6 +1,6 @@
 # Merge Qt .ts files
 
-Note: There's a newer project with a more versatile UI for this at the following address. It was originally based on this project, then apparently rewritten. I haven't tested it though.
+Note: There's a newer project with a more versatile UI for this at the following address. It was originally based on this project, then apparently rewritten. I haven't tested it though. *This newer project makes it harder to know which imported language file is prioritized though, which is essential for me.*
  https://github.com/aschet/linguistmerge
 
 See also lconverter
