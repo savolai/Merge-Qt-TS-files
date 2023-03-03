@@ -57,7 +57,7 @@ void CombineTranslationFiles::readXML(const QString& sourcePath)
         xmlR.setDevice(&sourceFile);
 
         if (xmlR.readNextStartElement()) {
-            if (xmlR.name() == "TS") {
+            if (xmlR.name().toString() == "TS") {
                 readTS();
 
                 ui->textBrowser->append(QString("<br>Completed reading in file %1").arg(ui->sourceFile->text()));
@@ -67,7 +67,7 @@ void CombineTranslationFiles::readXML(const QString& sourcePath)
                 }
                 int total = 0;
                 int modules = 0;
-                QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
+                QMapIterator<QString, QMap<QString, QMap<QString, QString>>> i(sourceStrings);
                 while (i.hasNext()) {
                     i.next();
                     total += i.value().size();
@@ -87,7 +87,7 @@ void CombineTranslationFiles::readXML(const QString& sourcePath)
 
 void CombineTranslationFiles::readTS()
 {
-    Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "TS");
+    Q_ASSERT(xmlR.isStartElement() && xmlR.name().toString() == "TS");
     QString newlang = xmlR.attributes().value("language").toString();
     if (ui->language->text() != newlang
         && !ui->language->text().isEmpty()
@@ -97,7 +97,7 @@ void CombineTranslationFiles::readTS()
     ui->language->setText(newlang);
 
     while (xmlR.readNextStartElement()) {
-        if (xmlR.name() == "context")
+        if (xmlR.name().toString() == "context")
             readContext();
         else {
             qDebug() << "Unexpected element as child of TS" << xmlR.name();
@@ -108,14 +108,14 @@ void CombineTranslationFiles::readTS()
 
 void CombineTranslationFiles::readContext()
 {
-    Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "context");
+    Q_ASSERT(xmlR.isStartElement() && xmlR.name().toString() == "context");
     QString context;
 
     while (xmlR.readNextStartElement()) {
-        if (xmlR.name() == "name") {
+        if (xmlR.name().toString() == "name") {
             context = xmlR.readElementText();
 
-        } else if (xmlR.name() == "message") {
+        } else if (xmlR.name().toString() == "message") {
             readMessage(context);
         } else {
             xmlR.skipCurrentElement();
@@ -124,7 +124,7 @@ void CombineTranslationFiles::readContext()
 }
 void CombineTranslationFiles::readMessage(const QString& context)
 {
-    Q_ASSERT(xmlR.isStartElement() && xmlR.name() == "message");
+    Q_ASSERT(xmlR.isStartElement() && xmlR.name().toString() == "message");
     QString source;
     QString translation;
     QString translationtype;
@@ -135,9 +135,9 @@ void CombineTranslationFiles::readMessage(const QString& context)
 
     while (xmlR.readNextStartElement()) {
 
-        if (xmlR.name() == "source") {
+        if (xmlR.name().toString() == "source") {
             source = xmlR.readElementText();
-        } else if (xmlR.name() == "translation") {
+        } else if (xmlR.name().toString() == "translation") {
             // check if non-empty translation already exists; don't overwrite it
             if (sourceStrings[context].contains(source)) {
                 QMap<QString, QString> existingTargetStrings = sourceStrings[context].value(source);
@@ -159,10 +159,10 @@ void CombineTranslationFiles::readMessage(const QString& context)
             targetStrings.insert("translationtype", translationtype);
             targetStrings.insert("translation", translation);
 
-        } else if (xmlR.name() == "translatorcomment") {
+        } else if (xmlR.name().toString() == "translatorcomment") {
             translatorcomment = xmlR.readElementText();
             targetStrings.insert("translatorcomment", translatorcomment);
-        } else if (xmlR.name() == "location") {
+        } else if (xmlR.name().toString() == "location") {
             /// @todo there can be multiple locations in the file, and we should still
             /// keep corresponding filenames and lines together.
             targetStrings.insert("locationFilename", xmlR.attributes().value("filename").toString());
@@ -192,7 +192,7 @@ bool CombineTranslationFiles::writeFile(const QString& targetPath)
         xmlW.writeAttribute("language", ui->language->text());
         int total = 0;
         int modules = 0;
-        QMapIterator<QString, QMap<QString, QMap<QString, QString> > > i(sourceStrings);
+        QMapIterator<QString, QMap<QString, QMap<QString, QString>>> i(sourceStrings);
         while (i.hasNext()) {
             i.next();
             total += writeItem(i.key(), i.value());
@@ -206,14 +206,14 @@ bool CombineTranslationFiles::writeFile(const QString& targetPath)
     }
     return true;
 }
-int CombineTranslationFiles::writeItem(const QString& context, const QMap<QString, QMap<QString, QString> >& content)
+int CombineTranslationFiles::writeItem(const QString& context, const QMap<QString, QMap<QString, QString>>& content)
 {
     xmlW.writeStartElement("context");
 
     xmlW.writeTextElement("name", context);
     int total = 0;
 
-    QMapIterator<QString, QMap<QString, QString> > i(content);
+    QMapIterator<QString, QMap<QString, QString>> i(content);
     while (i.hasNext()) {
         i.next();
 
