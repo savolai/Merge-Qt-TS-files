@@ -1,5 +1,5 @@
 # Merge Qt .ts files
-Sometimes you can end up in a situation where you have multiple little apps (Qt projects) as part of a bigger project. So you may have started out with multiple translation files, but really, you want a single common translation file between projects so they share a vocabulary. So how do you combine multiple translation files? This app makes it easy. 
+**Sometimes you can end up in a situation where you have multiple little apps (Qt projects) as part of a bigger project. So you may have started out with multiple translation files, but really, you want a single common translation file between projects so they share a vocabulary. So how do you combine multiple translation files? This app makes it easy.**
 
 Note: There's a newer project with a more versatile UI for this at the following address. It was originally based on this project, then apparently rewritten. I haven't tested it though. *This newer project makes it harder to know which imported language file is prioritized though, which is essential for me.*
  https://github.com/aschet/linguistmerge
